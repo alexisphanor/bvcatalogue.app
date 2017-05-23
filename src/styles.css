@@ -1,0 +1,129 @@
+body {
+    font-size: 1rem;
+    color: rgb(68, 68, 68);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+}
+
+#pagination {
+    width: 800px;
+    margin: 0 auto;
+}
+
+#pagination ul li {
+    list-style: none;
+    display: inline-block;
+    margin-right: 1em;
+}
+
+li a {
+    margin-right: 1em;
+}
+
+#pagination ul:before,
+#pagination ul:after {
+    content: "";
+    display: table;
+}
+
+#pagination ul:after {
+    clear: both;
+}
+
+.clearer {
+    height: 0;
+    clear: both;
+}
+
+.suggestions {
+    z-index: 9999;
+    position: absolute;
+    background: #FFF;
+    margin-left: -3px;
+    margin-bottom: 2em;
+    border: rgb(28, 107, 127) 2px solid;
+    border-radius: 5px
+}
+
+.suggestions:before {
+    border-color: rgb(28, 107, 127) 2px solid;
+    border-bottom-color: #DDD;
+    border-width: 13px;
+    margin-left: -13px;
+}
+
+.suggestions:after,
+.suggestions:before {
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.suggestions:after {
+    border-color: transparent;
+    border-bottom-color: rgb(28, 107, 127);
+    border-width: 10px;
+    margin-left: -10px;
+}
+
+.suggestions:before {
+    border-color: transparent;
+    border-bottom-color: rgb(28, 107, 127);
+    border-width: 13px;
+    margin-left: -13px;
+}
+
+.suggestions:after {
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: transparent;
+    border-bottom-color: #FFF;
+    border-width: 10px;
+    margin-left: -10px;
+}
+
+.suggestions ul {
+    text-align: center;
+    padding: 0;
+}
+
+.suggestions ul li {
+    padding: 20px !important;
+}
+
+.suggestions ul li a {
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    color: #000;
+}
+
+.suggestions ul li a:hover {
+    text-decoration: none;
+    color: #FFF;
+}
+
+.suggestions ul li:hover {
+    background: rgb(28, 107, 127);
+    color: #FFF;
+    margin: 0;
+}
+
+.eclipse {
+    float: left;
+    margin-left: 0;
+    width: 100%;
+}

@@ -1,0 +1,76 @@
+<div class="Toolbar" style="box-sizing: content-box; display: flex; align-items: center; min-height: 48px; padding: 0px 0.5rem 0px 0px; color: grey; background-color: rgb(245, 247, 248); border-bottom: 1px solid rgb(204, 204, 204); height: 3.5rem;">
+    <div id="portalPrimaryNavigation" class="Dropdown" style="box-sizing: border-box; position: relative;">
+        <div id="portalPrimaryNavigationButton">
+            <a class="NavItem" style="box-sizing: border-box; font-size: 14px; font-weight: 600; line-height: 1rem; text-decoration: none; display: flex; align-items: center; align-self: stretch; padding: 0px; color: inherit; cursor: pointer;">
+                <div style="padding: 1rem; height: 1.5rem; width: 1.5rem; background: rgb(28, 107, 127); box-sizing: content-box;">
+                    <div style="padding: 2px 0px 0px 1px;">
+                        <svg fill="currentColor" preserveAspectRatio="xMidYMid meet" height="24" width="24" viewBox="0 0 36 36" style="vertical-align: middle;">
+                            <g>
+                                <path fill="#fff" d="m0.14515 0c-0.080584 0-0.14515 0.066103-0.14515 0.1463v4.8197c0 0.0797 0.064566 0.1433 0.14515 0.1433h2.0112v21.17h-2.0112c-0.080634 0-0.1452 0.066-0.1452 0.146v4.817c0 0.082 0.064566 0.146 0.14515 0.146h4.9624l1.183-1.904c1.9297 1.572 4.3894 2.516 7.0694 2.516 6.191 0 11.206-5.022 11.206-11.218 0-6.198-5.015-11.22-11.206-11.22-1.472 0.0005-2.876 0.2883-4.1663 0.807-0.0447 0.025-0.0719 0.068-0.0719 0.122v5.78c0 0.041 0.0325 0.076 0.0762 0.076 0.0204 0 0.0384-0.009 0.0539-0.022 1.0811-0.999 2.5231-1.609 4.1081-1.609 3.347 0 6.06 2.714 6.06 6.066 0 3.348-2.713 6.066-6.06 6.066-3.345 0-6.0582-2.718-6.0582-6.066v-18.206c0-1.4231-1.1505-2.576-2.5729-2.576h-4.5838z"></path>
+                                <path fill="#fff" d="m31.024 18c2.199 0 3.976-1.792 3.976-3.997 0-2.208-1.777-4.003-3.976-4.003-2.24 0-4.024 1.795-4.024 4.003 0 2.205 1.784 3.997 4.024 3.997"></path>
+                                <path fill="#fff" d="m31.024 32c2.199 0 3.976-1.792 3.976-3.999 0-2.208-1.777-4.001-3.976-4.001-2.24 0-4.024 1.793-4.024 4.001 0 2.207 1.784 3.999 4.024 3.999"></path>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+                <div style="font-size: 1.3125rem; color: rgb(68, 68, 68); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-weight: 300; padding: 0px 1rem;">{{title}}</div>
+            </a>
+        </div>
+    </div>
+</div>
+<div id="app-core">
+    <md-card *ngIf="check == false">
+        <md-input-container>
+            <input mdInput placeholder="API Call" [(ngModel)]="apicall">
+        </md-input-container>
+        <button (click)="get(apicall)" md-raised-button>Submit</button>
+    </md-card>
+    <br>
+    <div id="results" *ngIf="check == true">
+	    <material-chips (tagsfocusedChange)="tagsFocused=$event" [(ngModel)]="tag"></material-chips>
+	    <br><br>
+	    <div class="container" >
+	        <div class="input-field col s12">
+	         <md-input-container>
+	            <input mdInput placeholder="Product ID" class="validate filter-input" [(ngModel)]=query (keyup)=filter()>
+	        </md-input-container>
+	        </div>
+	        <div class="suggestions" *ngIf="filteredList.length > 0">
+	            <ul>
+	                <li *ngFor="let item of filteredList; let idx = index">
+	                    <a href="javascript:void(0)" (click)="select(item)">{{item}}</a>
+	                </li>
+	            </ul>
+	        </div>
+	    </div>
+	    <button (click)="export()" md-raised-button>Export</button>
+	    <p *ngIf="output == true"><b>Download feed here <a target="_blank" href="{{outputfile}}">{{datafile}}</a></b></p>
+	    <!-- <button onclick="window.location.reload()" md-raised-button>Reload</button> -->
+	    <br>
+	    <p *ngIf="empty == true">Please select a product ID.</p>
+		<section id="APIResults" *ngIf="empty == false">
+			<h3 *ngIf="productsFilter != true">Number of products: {{total}}</h3>
+		    <md-grid-list cols="2" rowHeight="2:1">
+		        <md-grid-tile *ngFor="let c of code | paginate: { itemsPerPage: 100, currentPage: page }" style="background: #FFF;">
+		            <div class="eclipse" style="padding: 2em;">
+		                <h2>{{c.Name}}</h2>
+		                <p>{{c.Description}}</p>
+		                <p><small>{{c.Id}}</small></p>
+		                <img width="100" src="{{c.ImageUrl}}" alt="{{c.Name}}">
+		            </div>
+		        </md-grid-tile>
+		    </md-grid-list>
+		    <div class="has-text-centered">
+			    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+			</div>
+		</section>
+    </div>
+<!--     <div id="pagination">
+        <ul>
+	        <li *ngFor="let paginations of pagination; let i=index">
+		        <a (click)="update($event)" id="{{paginations.newurl}}" href="#">{{i + 1}}</a>
+	        </li>
+	        <div class="clearer"></div>
+        </ul>
+    </div> -->
+</div>
