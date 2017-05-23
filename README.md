@@ -2,6 +2,10 @@
 
 This project was created for a API catalogue checker Webapp.
 
+## Test site
+
+[http://alexisphanor.com/catalogue/](http://alexisphanor.com/catalogue/)
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
